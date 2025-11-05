@@ -1,0 +1,50 @@
+[
+  {
+    "name": "general_contains_paths",
+    "description": "Explore general CONTAINS relationships between IFC elements with all node and relationship properties.",
+    "keywords": ["graph", "explore", "contains", "relationships", "path"],
+    "cypher": "MATCH p = ()-[:CONTAINS]->()\nRETURN\n  [n IN nodes(p) | {elementId: elementId(n), labels: labels(n), props: properties(n)}] AS nodes,\n  [r IN relationships(p) | {elementId: elementId(r), type: type(r), props: properties(r)}] AS rels\nLIMIT 600"
+  },
+  {
+    "name": "all_doors_full_props",
+    "description": "Retrieve all IfcDoor elements with their complete property maps.",
+    "keywords": ["door", "doors", "ifcdoor"],
+    "cypher": "MATCH (d:IfcDoor)\nRETURN\n  elementId(d) AS elementId,\n  labels(d) AS labels,\n  properties(d) AS props\nLIMIT 200"
+  },
+  {
+    "name": "all_windows_full_props",
+    "description": "Retrieve all IfcWindow elements with their complete property maps.",
+    "keywords": ["window", "windows", "ifcwindow"],
+    "cypher": "MATCH (w:IfcWindow)\nRETURN\n  elementId(w) AS elementId,\n  labels(w) AS labels,\n  properties(w) AS props\nLIMIT 200"
+  },
+  {
+    "name": "windows_contains_all_props",
+    "description": "Find windows contained in other elements (like walls or storeys) with all properties of both container and window.",
+    "keywords": ["window", "windows", "contains", "container", "wall", "storey"],
+    "cypher": "MATCH (container)-[:CONTAINS]->(window:IfcWindow)\nRETURN\n  elementId(container) AS containerElementId,\n  labels(container) AS containerLabels,\n  properties(container) AS containerProps,\n  elementId(window) AS windowElementId,\n  labels(window) AS windowLabels,\n  properties(window) AS windowProps"
+  },
+  {
+    "name": "windows_has_opening_all_props",
+    "description": "Find windows using HAS_OPENING relationship with complete property maps for both nodes and the relationship.",
+    "keywords": ["window", "windows", "has_opening", "opening", "wall"],
+    "cypher": "MATCH (container)-[rel:HAS_OPENING]->(window:IfcWindow)\nRETURN\n  elementId(container) AS containerElementId,\n  labels(container) AS containerLabels,\n  properties(container) AS containerProps,\n  elementId(rel) AS relElementId,\n  type(rel) AS relType,\n  properties(rel) AS relProps,\n  elementId(window) AS windowElementId,\n  labels(window) AS windowLabels,\n  properties(window) AS windowProps"
+  },
+  {
+    "name": "doors_contains_all_props",
+    "description": "Find doors contained in other elements (like rooms or walls) with all properties of both container and door.",
+    "keywords": ["door", "doors", "contains", "container", "room", "wall", "ifcdoor"],
+    "cypher": "MATCH (container)-[:CONTAINS]->(door:IfcDoor)\nRETURN\n  elementId(container) AS containerElementId,\n  labels(container) AS containerLabels,\n  properties(container) AS containerProps,\n  elementId(door) AS doorElementId,\n  labels(door) AS doorLabels,\n  properties(door) AS doorProps"
+  },
+  {
+    "name": "doors_has_opening_all_props",
+    "description": "Find doors connected through HAS_OPENING relationships, returning full property maps for container, door, and relationship.",
+    "keywords": ["door", "doors", "has_opening", "opening", "wall", "ifcdoor"],
+    "cypher": "MATCH (container)-[rel:HAS_OPENING]->(door:IfcDoor)\nRETURN\n  elementId(container) AS containerElementId,\n  labels(container) AS containerLabels,\n  properties(container) AS containerProps,\n  elementId(rel) AS relElementId,\n  type(rel) AS relType,\n  properties(rel) AS relProps,\n  elementId(door) AS doorElementId,\n  labels(door) AS doorLabels,\n  properties(door) AS doorProps"
+  },
+  {
+    "name": "count_ifc_elements",
+    "description": "Count all IFC elements grouped by their IFC type.",
+    "keywords": ["count", "elements", "ifctype", "statistics", "summary"],
+    "cypher": "MATCH (n)\nWHERE n.ifcType IS NOT NULL\nRETURN n.ifcType AS type, count(n) AS count\nORDER BY count DESC"
+  }
+]

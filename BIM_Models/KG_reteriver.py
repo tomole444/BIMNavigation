@@ -4,7 +4,8 @@ from neo4j import GraphDatabase
 # --- Connection Details for your Local Neo4j DB ---
 URI = "neo4j://127.0.0.1:7687"
 #AUTH = ("neo4j", "kg_bim123")  # duplex
-AUTH = ("neo4j", "kg_bim_cranehall")  # cranehall
+#AUTH = ("neo4j", "kg_bim_cranehall")  # cranehall
+AUTH = ("neo4j", "riedelbau_model")  # riedelbau_model
 
 # --- Helper to flatten properties ---
 def flatten_properties(props, prefix=""):
@@ -49,7 +50,7 @@ def import_data(driver, graph_data):
         driver.execute_query(cypher_query, source=rel['source'], target=rel['target'])
 
 if __name__ == "__main__":
-    with open('bim_graph_crane.json', 'r') as f:
+    with open('bim_riedel.json', 'r') as f:
         bim_data = json.load(f)
 
     with GraphDatabase.driver(URI, auth=AUTH) as driver:

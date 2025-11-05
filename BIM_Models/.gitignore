@@ -1,0 +1,11 @@
+# Chroma database files
+chroma_db/
+chroma_db_complete/
+**/chroma.sqlite3
+**/*.chroma/
+.chroma/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class

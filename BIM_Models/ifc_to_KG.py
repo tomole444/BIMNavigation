@@ -196,7 +196,7 @@ import csv
 # --- Main Execution ---
 if __name__ == "__main__":
     # IMPORTANT: Replace with the actual path to your IFC file
-    ifc_file_path = "/home/grass/BIM_Navigation/src/BIM_Models/models/crane_hall_v10.ifc"
+    ifc_file_path = "/home/grass/BIM_Navigation/src/BIM_Models/models/Projekt1.ifc"
     
     try:
         nodes, relationships = extract_graph_data(ifc_file_path)
@@ -207,13 +207,13 @@ if __name__ == "__main__":
         }
         
         # --- Save JSON ---
-        output_json = "bim_graph_crane.json"
+        output_json = "bim_riedel.json"
         with open(output_json, 'w') as f:
             json.dump(graph_data, f, indent=4)
         print(f"JSON saved to {output_json}")
         
         # --- Save CSV: Nodes ---
-        output_nodes = "nodes.csv"
+        output_nodes = "nodes_riedel.csv"
         with open(output_nodes, 'w', newline='') as f:
             writer = csv.DictWriter(
                 f, 
@@ -234,7 +234,7 @@ if __name__ == "__main__":
         print(f"Nodes CSV saved to {output_nodes}")
         
         # --- Save CSV: Relationships ---
-        output_edges = "edges.csv"
+        output_edges = "edges_riedel.csv"
         with open(output_edges, 'w', newline='') as f:
             writer = csv.DictWriter(
                 f, 
