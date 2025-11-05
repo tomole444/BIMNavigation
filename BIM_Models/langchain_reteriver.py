@@ -1,7 +1,7 @@
 """
 GraphRAG Retriever with Complete Data Preservation
+---------------------------------------------------
 Preserves ALL Neo4j data and makes it fully searchable
-Last updated: November 5, 2025
 """
 
 from typing import List, Dict, Any, Optional
